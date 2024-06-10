@@ -1,0 +1,48 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #ffcc33, #ff99cc);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#app {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    max-width: 100%;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    position: relative;
+}
+
+.header .logo {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #ff3366;
+}
+
+.note-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 10px;
+}

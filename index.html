@@ -15,7 +15,22 @@
         <form class="note-form">
             <input type="text" id="note-title" placeholder="Title">
             <textarea id="note-content" placeholder="Content"></textarea>
-            <input type="text" id="note-category" placeholder="Category">
+            <select id="note-category">
+                <option value="" disabled selected>Select Category</option>
+                <option value="Personal">Personal</option>
+                <option value="Work">Work</option>
+                <option value="Study">Study</option>
+                <option value="Ideas">Ideas</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Travel">Travel</option>
+                <option value="Health">Health</option>
+                <option value="Finance">Finance</option>
+                <option value="Books">Books</option>
+                <option value="Events">Events</option>
+                <option value="Movies/TV Shows">Movies/TV Shows</option>
+                <option value="Contacts">Contacts</option>
+                <option value="Reminders">Reminders</option>
+            </select>
             <button type="submit">Add Note</button>
         </form>
         <div class="search-bar">
