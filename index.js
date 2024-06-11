@@ -7,68 +7,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const noteForm = document.getElementById('note-form')
     const notesList = document.getElementById('notes-list')
     const searchInput = document.getElementById('search-input')
+    const noteTemplate = document.getElementById('note-template')
 
     // Loads notes from localStorage or initializes an empty array if no notes are found
     let notes = JSON.parse(localStorage.getItem('notes')) || []
 
-   
+    // Function to render notes based on a search filter
     const renderNotes = (filter = '') => {
         // Clears the current list of notes
         notesList.innerHTML = ''
-
+        //Create a document fragment to minimize reflows and repaints
+        const fragment = document.createDocumentFragment()
         // Filter notes based on the search filter
         notes
-            .filter(note => note.title.includes(filter) || note.content.includes(filter) || note.category.includes(filter))
-            .forEach(note => {
-                //Creates and appends HTML elements for each note, title, content, category, and  delete, pin, favorite  buttons
-                const noteElement = document.createElement('div')
-                noteElement.classList.add('note')
+        .filter(note => note.title.includes(filter) || note.content.includes(filter) || note.category.includes(filter))
+        .forEach(note => {
+            // Clone the note template
+            const noteElement = noteTemplate.content.cloneNode(true)
 
-                const noteTitle = document.createElement('h2')
-                noteTitle.textContent = note.title
+            // Clones the note template and fills it with the note's data (title, content, category).
+            noteElement.querySelector('.note-title').textContent = note.title
+            noteElement.querySelector('.note-content').textContent = note.content
+            noteElement.querySelector('.note-category').textContent = `Category: ${note.category}`
+            const deleteButton = noteElement.querySelector('.delete')
+            const pinButton = noteElement.querySelector('.pin')
+            const favoriteButton = noteElement.querySelector('.favorite')
 
-                const noteContent = document.createElement('p')
-                noteContent.textContent = note.content
-
-                const noteCategory = document.createElement('div')
-                noteCategory.classList.add('category')
-                noteCategory.textContent = `Category: ${note.category}`
-
-                
-                const deleteButton = document.createElement('button')
-                deleteButton.classList.add('delete')
-                deleteButton.textContent = 'Delete'
-                deleteButton.addEventListener('click', () => deleteNote(note.id))
-
-                const pinButton = document.createElement('button')
-                pinButton.classList.add('pin')
-                pinButton.textContent = note.pinned ? 'Unpin' : 'Pin'
-                pinButton.addEventListener('click', () => {
-                    pinUnpin(note.id)
-                    pinButton.textContent = note.pinned ? 'Pin' : 'Unpin'
-                })
-
-                const favoriteButton = document.createElement('button')
-                favoriteButton.classList.add('favorite')
-                favoriteButton.textContent = note.favorite ? 'Unfavorite' : 'Favorite'
-                favoriteButton.addEventListener('click', () => {
-                    favoriteUnfavorite(note.id)
-                    favoriteButton.textContent = note.favorite ? 'Favorite' : 'Unfavorite'
-                })
-
-                // Create a document fragment to append elements
-                const fragment = document.createDocumentFragment()
-                fragment.appendChild(noteTitle)
-                fragment.appendChild(noteContent)
-                fragment.appendChild(noteCategory)
-                fragment.appendChild(deleteButton)
-                fragment.appendChild(pinButton)
-                fragment.appendChild(favoriteButton)
-
-                // Append the fragment to the note element and the note element to the note list
-                noteElement.appendChild(fragment)
-                notesList.appendChild(noteElement)
+            // Set button text and event listeners
+            deleteButton.addEventListener('click', () => deleteNote(note.id))
+            pinButton.textContent = note.pinned ? 'Unpin' : 'Pin'
+            pinButton.addEventListener('click', () => {
+                pinUnpin(note.id)
+                pinButton.textContent = note.pinned ? 'Pin' : 'Unpin'
             })
+            favoriteButton.textContent = note.favorite ? 'Unfavorite' : 'Favorite'
+            favoriteButton.addEventListener('click', () => {
+                favoriteUnfavorite(note.id)
+                favoriteButton.textContent = note.favorite ? 'Favorite' : 'Unfavorite'
+            })
+
+            // Append the note to the DocumentFragment
+            fragment.appendChild(noteElement)
+        })
+
+     //and the DocumentFragment  to the list
+     notesList.appendChild(fragment)    
     }
 
     // Function to add a new note
@@ -171,10 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('beforeunload', (event) => {
     // Shows a confirmation message when the user tries to leave the page. If confirmed, all notes are cleared
-    const confirmationMessage = 'Are you sure you want to leave? All notes will be cleared.';
-        event.preventDefault(); // Some browsers may require this to trigger the dialog
-        dialog.returnValue = confirmationMessage; // Standard way to set the confirmation message
-    });
+    const confirmationMessage = 'Are you sure you want to leave? All notes will be cleared.'
+        event.preventDefault() // Some browsers may require this to trigger the dialog
+        dialog.returnValue = confirmationMessage // Standard way to set the confirmation message
+    })
 
     // Clears all notes if the user confirms leaving the page
     window.addEventListener('unload', clearAllNotes)
