@@ -46,6 +46,7 @@ body {
     margin-bottom: 20px;
     gap: 10px;
 }
+
 .note-form input, .note-form textarea, .note-form select {
     width: 95%;
     padding: 15px;
@@ -97,7 +98,6 @@ body {
     box-shadow: 0 0 10px rgba(255, 51, 102, 0.2);
 }
 
-
 .notes-list {
     margin-top: 20px;
 }
@@ -133,4 +133,43 @@ body {
     font-size: 0.9em;
     color: #999;
     margin-bottom: 10px;
+}
+
+.note button {
+    margin-right: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.note button.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.note button.delete:hover {
+    background-color: #c82333;
+    box-shadow: 0 0 10px rgba(200, 35, 51, 0.2);
+}
+
+.note button.pin {
+    background-color: #ffc107;
+    color: white;
+}
+
+.note button.pin:hover {
+    background-color: #e0a800;
+    box-shadow: 0 0 10px rgba(224, 168, 0, 0.2);
+}
+
+.note button.favorite {
+    background-color: #28a745;
+    color: white;
+}
+
+.note button.favorite:hover {
+    background-color: #218838;
+    box-shadow: 0 0 10px rgba(33, 136, 56, 0.2);
 }
