@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 pinUnpin(note.id)
                 pinButton.textContent = note.pinned ? 'Pin' : 'Unpin'
             })
-            
+
             favoriteButton.textContent = note.favorite ? 'Unfavorite' : 'Favorite'
             favoriteButton.addEventListener('click', () => {
                 favoriteUnfavorite(note.id)
@@ -158,8 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('beforeunload', (event) => {
     // Shows a confirmation message when the user tries to leave the page. If confirmed, all notes are cleared
     const confirmationMessage = 'Are you sure you want to leave? All notes will be cleared.'
-        event.preventDefault() // Some browsers may require this to trigger the dialog
-        dialog.returnValue = confirmationMessage // Standard way to set the confirmation message
+        event.preventDefault() 
+        dialog.returnValue = confirmationMessage // set the confirmation message
     })
 
     // Clears all notes if the user confirms leaving the page
