@@ -23,23 +23,26 @@ document.addEventListener('DOMContentLoaded', () => {
         .filter(note => note.title.includes(filter) || note.content.includes(filter) || note.category.includes(filter))
         .forEach(note => {
             // Clone the note template
-            const noteElement = noteTemplate.content.cloneNode(true)
+            const noteElement = noteTemplate.content.cloneNode(true) //Creates a deep copy of the template content (note-template")
 
             // Clones the note template and fills it with the note's data (title, content, category).
             noteElement.querySelector('.note-title').textContent = note.title
             noteElement.querySelector('.note-content').textContent = note.content
             noteElement.querySelector('.note-category').textContent = `Category: ${note.category}`
+
             const deleteButton = noteElement.querySelector('.delete')
             const pinButton = noteElement.querySelector('.pin')
             const favoriteButton = noteElement.querySelector('.favorite')
 
             // Set button text and event listeners
             deleteButton.addEventListener('click', () => deleteNote(note.id))
+
             pinButton.textContent = note.pinned ? 'Unpin' : 'Pin'
             pinButton.addEventListener('click', () => {
                 pinUnpin(note.id)
                 pinButton.textContent = note.pinned ? 'Pin' : 'Unpin'
             })
+            
             favoriteButton.textContent = note.favorite ? 'Unfavorite' : 'Favorite'
             favoriteButton.addEventListener('click', () => {
                 favoriteUnfavorite(note.id)
